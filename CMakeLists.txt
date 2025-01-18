@@ -18,6 +18,10 @@ add_executable (CoroutinesTutorial
 	"InterleaveVectors/InterleaveVectors.h"
 	"InterleaveVectors/Generator.h"
 	"InterleaveVectors/Generator.cpp"
+	"NetworkRequest/Generator.cpp"
+	"NetworkRequest/Generator.h"
+	"NetworkRequest/NetworkRequest.cpp"
+	"NetworkRequest/NetworkRequest.h"
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
