@@ -1,6 +1,9 @@
-﻿#include "CoroutinesTutorial.h"
+﻿#include "InterleaveVectors.h"
 
 #include "Generator.h"
+
+namespace interleavevectors
+{
 
 // Another coroutine, helper for InterleaveVectors
 static Generator YieldElementsInVectorA(const std::vector<int>& vec)
@@ -44,3 +47,4 @@ Generator InterleaveVectors(std::vector<int> a, std::vector<int> b)
 	// co_return; // --> equivalent without it being here
 }
 
+} // namespace interleavevectors

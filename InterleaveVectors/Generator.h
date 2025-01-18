@@ -3,6 +3,9 @@
 #include <coroutine>
 #include <iostream>
 
+namespace interleavevectors
+{
+
 // Wrapper around the 'promise_type' class
 // This is the interface for the coroutine calls
 class Generator
@@ -32,7 +35,7 @@ public:
 		int GetStoredValue() const;
 
 	private:
-		int m_value{ 15 };
+		int m_value{15};
 	};
 #pragma endregion
 
@@ -52,3 +55,5 @@ private:
 	// The underlying promise_type
 	HandleType m_handle{};
 };
+
+} // namespace interleavevectors

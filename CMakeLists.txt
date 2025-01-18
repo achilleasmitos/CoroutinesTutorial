@@ -14,9 +14,11 @@ project ("CoroutinesTutorial")
 # Add source to this project's executable.
 add_executable (CoroutinesTutorial
 	"main.cpp"
-	"CoroutinesTutorial.cpp"
-	"CoroutinesTutorial.h"
- "Generator.h"  "Generator.cpp")
+	"InterleaveVectors/InterleaveVectors.cpp"
+	"InterleaveVectors/InterleaveVectors.h"
+	"InterleaveVectors/Generator.h"
+	"InterleaveVectors/Generator.cpp"
+)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET CoroutinesTutorial PROPERTY CXX_STANDARD 20)
