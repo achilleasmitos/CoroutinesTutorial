@@ -28,7 +28,9 @@ static Generator YieldElementsInVectorB(const std::vector<int>& vec)
 Generator InterleaveVectors(std::vector<int> a, std::vector<int> b)
 {
 	auto firstGen = YieldElementsInVectorA(a);
+	// firstGen.resume(); // --> necessary if initial_suspend is set to suspend_always
 	auto secondGen = YieldElementsInVectorB(b);
+	// secondGen.resume(); // --> necessary if initial_suspend is set to suspend_always
 
 	while (!firstGen.is_finished() || !secondGen.is_finished())
 	{

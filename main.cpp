@@ -3,14 +3,22 @@
 #include <thread>
 #include <vector>
 
+#define InterleaveVectorsON 1
+#define NetworkRequestON 1
+
+#if InterleaveVectorsON
 #include "InterleaveVectors/InterleaveVectors.h"
 #include "InterleaveVectors/Generator.h"
+#endif // InterleaveVectorsON
 
+#if NetworkRequestON
 #include "NetworkRequest/NetworkRequest.h"
 #include "NetworkRequest/Generator.h"
+#endif // NetworkRequestON
 
 int main()
 {
+#if InterleaveVectorsON
 	{
 		using namespace interleavevectors;
 
@@ -18,6 +26,7 @@ int main()
 		std::vector<int> b{3, 5, 7, 9};
 
 		Generator gen{InterleaveVectors(std::move(a), std::move(b))};
+		// gen.resume(); // --> necessary if initial_suspend is set to suspend_always
 
 		while (!gen.is_finished())
 		{
@@ -26,7 +35,9 @@ int main()
 			gen.resume();
 		}
 	}
+#endif // InterleaveVectorsON
 
+#if NetworkRequestON
 	{
 		using namespace networkrequest;
 
@@ -46,8 +57,10 @@ int main()
 		// The main thread wouldn't normally exit before server answered
 		serverThread.join();
 
+		std::this_thread::sleep_for(std::chrono::seconds(2)); // Wait for everything to finish
 		std::cout << "Main thread exiting." << std::endl;
 	}
+#endif // NetworkRequestON
 
 	return 0;
 }

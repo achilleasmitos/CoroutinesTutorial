@@ -21,6 +21,11 @@ public:
 	public:
 #pragma region Necessary methods for "promise_type"
 		Generator get_return_object();
+		// The usual return type for initial_suspend and final_suspend
+		// is either suspend_never (meaning "continue with the coroutine directly")
+		// or suspend_always (meaning "wait for someone to call resume").
+		// In practice, final_suspend is almost always the latter, otherwise
+		// the coroutine has to clean itself up.
 		std::suspend_never initial_suspend() noexcept;
 		std::suspend_always final_suspend() noexcept;
 
