@@ -8,12 +8,14 @@
 
 namespace networkrequest
 {
-void GetAnswerFromServer(std::promise<PayloadType>& promise, const PayloadType& source)
+void GetAnswerFromServer(std::promise<ResponseType>& promise, const PayloadType& payload)
 {
-	std::cout << "Server thread: " << std::this_thread::get_id() << std::endl;
+	// std::cout << "Server thread: " << std::this_thread::get_id() << std::endl;
 
-	PayloadType answer;
-	std::copy(source.cbegin(), source.cend(), std::back_inserter(answer));
+	// The server calculates the answer based on the payload from the request.
+	// Here, we simply square each number in the payload.
+	ResponseType answer;
+	std::copy(payload.cbegin(), payload.cend(), std::back_inserter(answer));
 	std::transform(answer.cbegin(),
 		answer.cend(),
 		answer.begin(),
@@ -26,14 +28,14 @@ void GetAnswerFromServer(std::promise<PayloadType>& promise, const PayloadType& 
 	promise.set_value(answer);
 }
 
-Generator HandleNetworkRequest(std::promise<PayloadType>& promise)
+Generator HandleNetworkRequest(std::promise<ResponseType>& promise)
 {
 	// Simulate fetching info asynchronously
-	std::future<PayloadType> future = promise.get_future();
+	std::future<ResponseType> future = promise.get_future();
 
 	std::cout << "Request sent, waiting for data..." << std::endl;
 
-	const auto& result = co_await FutureAwaiter<PayloadType>{future}; // Suspend until data is ready
+	const auto& result = co_await FutureAwaiter<ResponseType>{future}; // Suspend until data is ready
 
 	std::cout << "Data received." << std::endl;
 	std::cout << "Answer from server:\n";

@@ -41,10 +41,15 @@ int main()
 	{
 		using namespace networkrequest;
 
+		// This program simulates a client sending a network request with payload to a server,
+		// the server using that payload to calculate a response, and then sending back that response.
+		// The request is awaited on a separate thread (and the server does its work on yet another thread).
+		// While the server is busy, control is given back to the main thread.
+
 		const PayloadType payload{1, 2, 3, 4};
 
-		std::cout << "Main thread: " << std::this_thread::get_id() << std::endl;
-		std::promise<PayloadType> promise;
+		// std::cout << "Main thread: " << std::this_thread::get_id() << std::endl;
+		std::promise<ResponseType> promise;
 
 		// Spawn a coroutine
 		auto coroutine = HandleNetworkRequest(promise);
@@ -54,7 +59,10 @@ int main()
 
 		std::cout << "Doing other stuff on the main thread..." << std::endl;
 
-		// The main thread wouldn't normally exit before server answered
+		std::this_thread::sleep_for(std::chrono::seconds(2)); // Simulate doing other stuff on the main thread
+
+		std::cout << "Doing more other stuff on the main thread..." << std::endl;
+
 		serverThread.join();
 
 		std::this_thread::sleep_for(std::chrono::seconds(2)); // Wait for everything to finish

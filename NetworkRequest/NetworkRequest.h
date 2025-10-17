@@ -7,6 +7,7 @@ namespace networkrequest
 {
 
 using PayloadType = std::vector<int>;
+using ResponseType = std::vector<int>;
 
 // Simulate a different machine (server) doing computations and giving back results to our requests
 void GetAnswerFromServer(std::promise<PayloadType>& promise, const PayloadType& source);

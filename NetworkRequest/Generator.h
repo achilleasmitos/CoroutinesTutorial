@@ -26,13 +26,13 @@ struct FutureAwaiter
 				future.wait();
 				handle.resume();
 			});
-		std::cout << "Created coroutine thread: " << coroutineThread.get_id() << std::endl;
+		// std::cout << "Created coroutine thread: " << coroutineThread.get_id() << std::endl;
 		coroutineThread.detach();
 	}
 
 	T await_resume()
 	{
-		std::cout << "Coroutine thread: " << std::this_thread::get_id() << std::endl;
+		// std::cout << "Coroutine thread: " << std::this_thread::get_id() << std::endl;
 		return future.get();
 	}
 };
