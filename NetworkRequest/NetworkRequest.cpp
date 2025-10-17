@@ -26,7 +26,7 @@ void GetAnswerFromServer(std::promise<PayloadType>& promise, const PayloadType& 
 	promise.set_value(answer);
 }
 
-Generator HandleNetworkRequest(std::promise<PayloadType>& promise, const PayloadType& payload)
+Generator HandleNetworkRequest(std::promise<PayloadType>& promise)
 {
 	// Simulate fetching info asynchronously
 	std::future<PayloadType> future = promise.get_future();

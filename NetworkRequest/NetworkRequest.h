@@ -13,6 +13,6 @@ void GetAnswerFromServer(std::promise<PayloadType>& promise, const PayloadType& 
 
 struct Generator;
 
-Generator HandleNetworkRequest(std::promise<PayloadType>& promise, const PayloadType& payload);
+Generator HandleNetworkRequest(std::promise<PayloadType>& promise);
 
 } // namespace networkrequest

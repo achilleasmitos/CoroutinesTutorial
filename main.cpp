@@ -3,7 +3,7 @@
 #include <thread>
 #include <vector>
 
-#define InterleaveVectorsON 1
+#define InterleaveVectorsON 0
 #define NetworkRequestON 1
 
 #if InterleaveVectorsON
@@ -47,7 +47,7 @@ int main()
 		std::promise<PayloadType> promise;
 
 		// Spawn a coroutine
-		auto coroutine = HandleNetworkRequest(promise, payload);
+		auto coroutine = HandleNetworkRequest(promise);
 		coroutine.resume();
 
 		std::thread serverThread(GetAnswerFromServer, std::ref(promise), std::ref(payload));
